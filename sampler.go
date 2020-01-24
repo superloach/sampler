@@ -3,10 +3,10 @@ package sampler
 import "io"
 
 type Sampler struct {
-	Index     int64
+	Index     int
 	Frequency float64
 	Volume    float64
-	Rate      int64
+	Rate      int
 	Func     func(*Sampler) float64
 }
 
@@ -27,9 +27,9 @@ func (s *Sampler) Read(p []byte) (n int, err error) {
 func (s *Sampler) Seek(offset int64, whence int) (n int64, err error) {
 	switch whence {
 	case io.SeekStart:
-		s.Index = offset
+		s.Index = int(offset)
 	case io.SeekCurrent:
-		s.Index = s.Index + offset
+		s.Index = s.Index + int(offset)
 	default:
 		return 0, nil
 	}
