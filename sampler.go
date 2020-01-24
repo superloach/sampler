@@ -1,5 +1,7 @@
 package sampler
 
+import "io"
+
 type Sampler struct {
 	Index     int64
 	Frequency float64
@@ -13,7 +15,7 @@ func (s *Sampler) Read(p []byte) (n int, err error) {
 
 	for i := 0; i < samples; i++ {
 		s.Index = s.Index + 1
-		sample := s.Sample(s)
+		sample := s.Func(s)
 		sample16bit := uint16(sample)
 		p[2*i] = uint8(sample16bit & 0xff)
 		p[2*i+1] = uint8(sample16bit >> 8)
