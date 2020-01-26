@@ -7,7 +7,7 @@ type Sampler struct {
 	Frequency float64
 	Volume    float64
 	Rate      int
-	Func     func(*Sampler) float64
+	Func     Func
 }
 
 func (s *Sampler) Read(p []byte) (n int, err error) {
