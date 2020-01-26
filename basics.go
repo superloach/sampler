@@ -1,6 +1,7 @@
 package sampler
 
 import "math"
+import "math/rand"
 
 type Func (func(*Sampler) float64)
 
@@ -25,3 +26,7 @@ func Pulse(duty float64) Func {
 }
 
 var Square Func = Pulse(0.5)
+
+func Noise(s *Sampler) float64 {
+	return rand.Float64() * s.Volume
+}
