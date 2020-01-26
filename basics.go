@@ -1,7 +1,9 @@
 package sampler
 
-import "math"
-import "math/rand"
+import (
+	"math"
+	"math/rand"
+)
 
 type Func (func(*Sampler) float64)
 

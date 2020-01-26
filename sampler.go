@@ -7,7 +7,7 @@ type Sampler struct {
 	Frequency float64
 	Volume    float64
 	Rate      int
-	Func     Func
+	Func      Func
 }
 
 func (s *Sampler) Read(p []byte) (n int, err error) {
@@ -15,7 +15,7 @@ func (s *Sampler) Read(p []byte) (n int, err error) {
 
 	for i := 0; i < samples; i++ {
 		s.Index = s.Index + 1
-		sample := s.Func(s) * (1<<15)
+		sample := s.Func(s) * (1 << 15)
 		sample16bit := uint16(sample)
 		p[2*i] = uint8(sample16bit & 0xff)
 		p[2*i+1] = uint8(sample16bit >> 8)
