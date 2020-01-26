@@ -12,17 +12,17 @@ func Sine(s *Sampler) float64 {
 func Saw(s *Sampler) float64 {
 	rf := float64(s.Rate) / s.Frequency
 	pk := s.Volume * (1 << 15)
-	return pk * ((2 * math.Mod(s.Index, rf)) / rf - 1)
+	return pk * (math.Mod(float64(s.Index), rf) / rf)
 }
 
 func Pulse(duty float64) Func {
-	return func(s *Sampler) {
+	return func(s *Sampler) float64 {
 		pk := s.Volume * (1 << 15)
-		sw := Saw(s) / pk + 1
-		if sw > 2 * duty {
-			return pk
+		sw := Saw(s) / pk
+		if sw > duty {
+			return 0
 		} else {
-			return -pk
+			return pk
 		}
 	}
 }
