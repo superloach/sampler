@@ -2,6 +2,7 @@ package sampler
 
 import "io"
 
+// Sampler provides PCM data from a Func and other parameters.
 type Sampler struct {
 	Index     int
 	Frequency float64
@@ -10,6 +11,7 @@ type Sampler struct {
 	Func      Func
 }
 
+// Read satisfies io.Reader.
 func (s *Sampler) Read(p []byte) (n int, err error) {
 	samples := len(p) / 2
 
@@ -24,6 +26,7 @@ func (s *Sampler) Read(p []byte) (n int, err error) {
 	return samples * 2, nil
 }
 
+// Seek satisfies io.Seeker.
 func (s *Sampler) Seek(offset int64, whence int) (n int64, err error) {
 	switch whence {
 	case io.SeekStart:
@@ -37,6 +40,7 @@ func (s *Sampler) Seek(offset int64, whence int) (n int64, err error) {
 	return int64(s.Index), nil
 }
 
+// Close satisfies io.Closer.
 func (s *Sampler) Close() error {
 	return nil
 }
